@@ -1,14 +1,18 @@
-pipeline{
+pipeline {
     agent {
-        docker image 'maven:3.9.11-eclipse-temurin-21'
+        docker {
+            image 'maven:3.9.11-eclipse-temurin-21'
+        }
     }
-    stages{
+
+    stages {
         stage('Build') {
             steps {
                 sh 'mvn clean package'
             }
         }
-        stage ('Sonar-Qube') {
+
+        stage('Sonar-Qube') {
             steps {
                 withSonarQubeEnv('sonar') {
                     sh 'mvn sonar:sonar'
@@ -16,9 +20,9 @@ pipeline{
             }
         }
 
-        stage ('Quality-Gate') {
+        stage('Quality-Gate') {
             steps {
-                timeout(time:5, unit:'MINUTES') {
+                timeout(time: 5, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
