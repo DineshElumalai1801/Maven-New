@@ -1,17 +1,17 @@
 pipeline{
     agent {
-        docker { image : maven:3.9.11-eclipse-temurin-21 }
+        docker image 'maven:3.9.11-eclipse-temurin-21'
     }
     stages{
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
         }
         stage ('Sonar-Qube') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    bat 'mvn sonar:sonar'
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
