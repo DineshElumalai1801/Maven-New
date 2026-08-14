@@ -1,22 +1,22 @@
 pipeline {
     agent {
         docker {
-        image 'maven:3.9.11-eclipse-temurin-21'
+            image 'dineshelumalai1810/maven:v1'
+        }
     }
+
     stages {
 
-       stage ('Maven check')
-       {
-        steps {
-            sh 'mvn -version'
+        stage('Maven check') {
+            steps {
+                sh 'mvn -version'
+            }
         }
-       } 
-       stage ('git check')
-       {
-        steps {
-            sh 'git --version'
+
+        stage('Git check') {
+            steps {
+                sh 'git --version'
+            }
         }
-       }
     }
-}
 }
